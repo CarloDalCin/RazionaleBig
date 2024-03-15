@@ -27,5 +27,6 @@ public class AppRazionale {
         System.out.println(bigRisultato);
         
         System.out.println("\n................\nFine main..");
+	System.out.println("ciao mondo 123...");
     }
 }
