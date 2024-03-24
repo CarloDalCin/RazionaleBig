@@ -98,7 +98,10 @@ public class RazionaleBig implements Algebra{
     public RazionaleBig() {
         this(0, 1);
     }
-    
+
+    public RazionaleBig(Algebra r) {
+	this((RazionaleBig) r);
+    }
     
     /**
      * Effettua l'addizione dell'elemnento corrente con l'oggeto passato come
@@ -108,7 +111,7 @@ public class RazionaleBig implements Algebra{
      * @return nuovo oggetto risultato dell'addizione
      */
     @Override
-    public RazionaleBig addizione(Algebra razionale) {
+    public Algebra addizione(Algebra razionale) {
         if(razionale == null){
             throw new IllegalArgumentException("ERROR: argument 'razionale' has to be not null");
         }
@@ -125,16 +128,16 @@ public class RazionaleBig implements Algebra{
                                 .add(((r.negativo ? r.num.negate() : r.num))
                                 .multiply(denominatore.divide(r.den))
         ));
-        return new RazionaleBig(numeratore, denominatore);
+        return (Algebra) new RazionaleBig(numeratore, denominatore);
     }
     
     @Override
-    public RazionaleBig sottrazione(Algebra r) {
-        return new RazionaleBig(this.addizione(r.opposto()));
+    public Algebra sottrazione(Algebra r) {
+        return (Algebra) new RazionaleBig(this.addizione(r.opposto()));
     }
     
     @Override
-    public RazionaleBig prodotto(Algebra razionale) {
+    public Algebra prodotto(Algebra razionale) {
         if(razionale == null){
             throw new IllegalArgumentException("ERROR: argument 'razionale' has to be not null");
         }
@@ -146,17 +149,22 @@ public class RazionaleBig implements Algebra{
         BigInteger num = this.num.divide(div2).multiply(r.num.divide(div1));
         BigInteger den = this.den.divide(div1).multiply(r.den.divide(div2));
         
-        return new RazionaleBig( (segno? num.negate() : num), den);
+        return (Algebra) new RazionaleBig( (segno? num.negate() : num), den);
     }
     
     @Override
-    public RazionaleBig divisione(Algebra razionale) {
-        return new RazionaleBig(this.prodotto(razionale.reciproco()));
+    public Algebra divisione(Algebra razionale) {
+        return (Algebra) new RazionaleBig(this.prodotto(razionale.reciproco()));
     }
     
     @Override
-    public RazionaleBig potenza(int esp) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public Algebra potenza(int esp) {
+	BigInteger numeratore, denominatore;
+
+	numeratore = this.num.pow(esp);
+	denominatore = this.den.pow(esp);
+
+	return (Algebra) new RazionaleBig(numeratore, denominatore, this.negativo);
     }
 
     @Override

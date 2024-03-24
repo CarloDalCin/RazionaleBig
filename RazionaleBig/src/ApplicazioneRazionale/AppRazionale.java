@@ -10,23 +10,12 @@ public class AppRazionale {
     
     public static void main(String[] args) {
         System.out.println("Inizio main..\n................\n");
-        
-        Razionale[] v = new Razionale[4];
-        RazionaleBig[] b = new RazionaleBig[4];
-        
-        for(int i=0; i<3; ++i) {
-            v[i] = new Razionale(i, 5);
-            b[i] = new RazionaleBig(Integer.toString(i) + "/5");
-        }
-        
-        
-        
-        Razionale risultato = v[1].prodotto(v[1]);
-        System.out.println(risultato);
-        RazionaleBig bigRisultato = b[1].prodotto(b[1]);
-        System.out.println(bigRisultato);
-        
+        RazionaleBig r1 = new RazionaleBig("25/6");
+	RazionaleBig r2 = new RazionaleBig("5/6");
+
+	System.out.println(r1 + " " + r2);
+
+	System.out.println(r1.addizione(r2));
         System.out.println("\n................\nFine main..");
-	System.out.println("ciao mondo 123...");
     }
 }
